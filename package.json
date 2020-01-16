@@ -1,0 +1,22 @@
+{
+  "name": "downloader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "fetcher.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flave19/page-fetcher.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/flave19/page-fetcher/issues"
+  },
+  "homepage": "https://github.com/flave19/page-fetcher#readme",
+  "dependencies": {
+    "request": "^2.88.0"
+  }
+}
