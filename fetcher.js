@@ -1,31 +1,32 @@
-const request = require('request');
-const fs = require('fs');
-
-const input = process.argv.splice(2)
-const URL = input[0]
-const filePath = input[1]
-
-
-const stats = fs.statSync(filePath);
-// const fileSizeInBytes = stats.size;
-
-
+const request = require("request");
+const fs = require("fs");
+const readline = require("readline");
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+const input = process.argv.splice(2);
+const URL = input[0];
+const filePath = input[1];
 
 request(URL, (error, response, body) => {
-  // console.log('error:', error); // Print the error if one occurred
-  // console.log('statusCode:', response && response.statusCode);
-  // console.log('body: ')
+  const writeFile = () => {
+    fs.writeFile(filePath, body, err => {
+      if (err) throw err;
+      let bytes = body.length;
+      console.log(`downloaded and saved ${bytes} bytes to ${filePath}`);
+    });
+  };
 
-  fs.writeFile(filePath, body, (err) => {
-    if (err) throw err;
-    let bytes = body.length
-    console.log(`downloaded and saved ${bytes} bytes to ${filePath}`);
-  });
-  // fs.writeFile(input[1], body ,function(error){
-  //   if(!error){
-  //     RunFile();
-  //   }
-  // })
-   // Print the response status code if a response was received
-  // console.log('body:', body); // Print the HTML for the Google homepage.
+  if (fs.existsSync(filePath)) {
+    rl.question("do you want to over y/n?",
+      answer => {
+        rl.close();
+        if (answer === "y") {
+          writeFile();
+        } else {
+          console.log("error");
+        }
+      });
+  }else writeFile();
 });
